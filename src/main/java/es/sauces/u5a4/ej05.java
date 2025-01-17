@@ -1,6 +1,5 @@
 package es.sauces.u5a4;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -20,8 +19,8 @@ public class ej05 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int opcion, posicion, acumulador, contador, i;
-        String codigo=null,nombre=null,buscar=null;
+        int opcion;
+        String codigo=null,nombre=null;
         HashMap<String,String> lista = new HashMap<>();
 
         do {
@@ -50,7 +49,6 @@ public class ej05 {
                         } else {
                             System.out.println("Operacion no disponible, la lista está vacia");
                         }
-
                     }
                     case 3 -> {
                         if (!lista.isEmpty()) {
@@ -90,7 +88,7 @@ public class ej05 {
                            if (lista.containsKey(cBuscado)) {
                                 System.out.println("El color que corresponde a ese codigo es: "+lista.get(cBuscado));
                             } else {
-                                System.out.println("Numero NO encontrado");
+                                System.out.println("Color NO encontrado");
                             }
                         } else {
                             System.out.println("Operacion no disponible, la lista está vacia");

@@ -20,7 +20,7 @@ public class ej02 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int opcion, n = 0, posicion, acumulador, contador, buscado = 0, i;
+        int opcion, i,num;
         LinkedList<Integer> lista = new LinkedList<>();
 
         do {
@@ -45,7 +45,8 @@ public class ej02 {
             if (opcion >= 0 && opcion <= 13) {
                 switch (opcion) {
                     case 1 -> {
-                        lista.add(leerNumero(n));
+                        num=leerNumero(0,10);
+                        lista.add(num);
                         System.out.println("");
                     }
                     case 2 -> {
@@ -59,7 +60,8 @@ public class ej02 {
                     }
                     case 3 -> {
                         if (!lista.isEmpty()) {
-                            lista.addFirst(leerNumero(n));
+                            num=leerNumero(0,10);
+                            lista.addFirst(num);
                         } else {
                             System.out.println("Operacion no disponible, la lista está vacia");
                         }
@@ -67,7 +69,8 @@ public class ej02 {
                     }
                     case 4 -> {
                         if (!lista.isEmpty()) {
-                            lista.addLast(leerNumero(n));
+                            num=leerNumero(0,10);
+                            lista.addLast(num);
                         } else {
                             System.out.println("Operacion no disponible, la lista está vacia");
                         }
@@ -104,9 +107,9 @@ public class ej02 {
                     }
                     case 8 -> {
                         if (!lista.isEmpty()) {
-                            Integer num=leerNumero(buscado);
-                            if (lista.contains(num)) {
-                                lista.removeFirstOccurrence(num);
+                            Integer numI=leerNumero(0,10);
+                            if (lista.contains(numI)) {
+                                lista.removeFirstOccurrence(numI);
                             } else {
                                 System.out.println("Numero NO encontrado");
                             }
@@ -117,9 +120,9 @@ public class ej02 {
                     }
                     case 9 -> {
                         if (!lista.isEmpty()) {
-                            Integer num=leerNumero(buscado);
-                            if (lista.contains(num)) {
-                                lista.removeLastOccurrence(num);
+                            Integer numI=leerNumero(0,10);
+                            if (lista.contains(numI)) {
+                                lista.removeLastOccurrence(numI);
                             } else {
                                 System.out.println("Numero NO encontrado");
                             }
@@ -140,8 +143,8 @@ public class ej02 {
                     }
                     case 11 -> {
                         if (!lista.isEmpty()) {
-                            lista.sort(Collections.reverseOrder());
-                            System.out.println("Lista ordenada inversamente: ");
+                            Collections.reverse(lista);
+                            System.out.println("Lista invertida: ");
                             System.out.println(lista);
                         } else {
                             System.out.println("Operacion no disponible, la lista está vacia");
@@ -150,7 +153,9 @@ public class ej02 {
                     }
                     case 12 -> {
                         if (!lista.isEmpty()) {
-                            for(i=0;i<=10;i++){
+                            int min=Collections.min(lista);
+                            int max=Collections.max(lista);
+                            for(i=min;i<=max;i++){
                                 System.out.println("el numero de elementos "+i+" es: "+Collections.frequency(lista, i));
                             }
                         } else {
@@ -177,12 +182,11 @@ public class ej02 {
         } while (opcion != 0);
     }
 
-    public static int leerNumero(int n) {
+    public static int leerNumero(int menor, int mayor) {
         System.out.print("Introduce un numero: ");
-        n = teclado.nextInt();
-        while (n < 0 || n > 10) {
-            System.out.println("Incorrecto (0-10)");
-            System.out.print("Introduce un numero: ");
+        int n = teclado.nextInt();
+        while (n < menor || n > mayor) {
+            System.out.println("Incorrecto, introduzca un valor en el rango ("+menor+","+mayor+")");
             n = teclado.nextInt();
         }
         return n;

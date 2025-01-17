@@ -1,6 +1,5 @@
 package es.sauces.u5a4;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -20,7 +19,7 @@ public class ej03 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int opcion, n = 0, posicion, acumulador, contador, buscado = 0, i;
+        int opcion,num;
         HashSet<Integer> lista = new HashSet<>();
 
         do {
@@ -39,7 +38,8 @@ public class ej03 {
             if (opcion >= 0 && opcion <= 6) {
                 switch (opcion) {
                     case 1 -> {
-                        lista.add(leerNumero(n));
+                        num=leerNumero(0,10);
+                        lista.add(num);
                         System.out.println("");
                     }
                     case 2 -> {
@@ -62,7 +62,8 @@ public class ej03 {
                     }
                     case 4 -> {
                         if (!lista.isEmpty()) {
-                            if (lista.contains(leerNumero(buscado))) {
+                            num=leerNumero(0,10);
+                            if (lista.contains(num)) {
                                 System.out.println("Numero encontrado");
                             } else {
                                 System.out.println("Numero NO encontrado");
@@ -74,8 +75,8 @@ public class ej03 {
                     }
                     case 5 -> {
                         if (!lista.isEmpty()) {
-                           Integer num=leerNumero(buscado);
-                           lista.remove(num);
+                           Integer numI=leerNumero(0,10);
+                           lista.remove(numI);
                         } else {
                             System.out.println("Operacion no disponible, la lista está vacia");
                         }
@@ -100,12 +101,11 @@ public class ej03 {
         } while (opcion != 0);
     }
 
-    public static int leerNumero(int n) {
+    public static int leerNumero(int menor, int mayor) {
         System.out.print("Introduce un numero: ");
-        n = teclado.nextInt();
-        while (n < 0 || n > 10) {
-            System.out.println("Incorrecto (0-10)");
-            System.out.print("Introduce un numero: ");
+        int n = teclado.nextInt();
+        while (n < menor || n > mayor) {
+            System.out.println("Incorrecto, introduzca un valor en el rango ("+menor+","+mayor+")");
             n = teclado.nextInt();
         }
         return n;

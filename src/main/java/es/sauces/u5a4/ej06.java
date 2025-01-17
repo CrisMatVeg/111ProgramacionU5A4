@@ -1,6 +1,5 @@
 package es.sauces.u5a4;
 
-import java.util.Collections;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -20,8 +19,8 @@ public class ej06 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int opcion, posicion, acumulador, contador, i;
-        String codigo=null,nombre=null,buscar=null;
+        int opcion;
+        String codigo=null,nombre=null;
         TreeMap<String,String> lista = new TreeMap<>();
 
         do {

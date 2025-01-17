@@ -20,7 +20,8 @@ public class ej01 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int opcion, n = 0, posicion, acumulador, contador, buscado = 0,i;
+        int opcion, posicion,num;
+        float acumulador;
         ArrayList<Integer> lista = new ArrayList<>();
 
         do {
@@ -49,7 +50,8 @@ public class ej01 {
             if (opcion >= 0 && opcion <= 17) {
                 switch (opcion) {
                     case 1 -> {
-                        lista.add(leerNumero(n));
+                        num=leerNumero(0,10);
+                        lista.add(num);
                         System.out.println("");
                     }
                     case 2 -> {
@@ -65,7 +67,7 @@ public class ej01 {
                         if (!lista.isEmpty()) {
                             System.out.println("Introduzca la posicion en la que quiere buscar algo:");
                             posicion = teclado.nextInt();
-                            if (posicion >= 0 && posicion <= lista.size()) {
+                            if (posicion >= 0 && posicion < lista.size()) {
                                 System.out.println("En esa posición se encuentra en siguiente numero: " + lista.get(posicion));
                             } else {
                                 System.out.println("No se encuentra esa posición en la lista, quiza sea superior al numero maximo de posiciones");
@@ -96,12 +98,10 @@ public class ej01 {
                     case 6 -> {
                         if (!lista.isEmpty()) {
                             acumulador=0;
-                            contador=0;
-                            for(i=0;i<=lista.size()-1;i++){
-                                acumulador+=lista.get(i);
-                                contador++;
+                            for(Integer elemento:lista){
+                                acumulador+=elemento;
                             }
-                            System.out.println("Media: "+(float)acumulador/contador);
+                            System.out.println("Media: "+acumulador/lista.size());
                         } else {
                             System.out.println("Operacion no disponible, la lista está vacia");
                         }
@@ -111,10 +111,10 @@ public class ej01 {
                         if (!lista.isEmpty()) {
                             System.out.println("Introduzca la posicion:");
                             posicion = teclado.nextInt();
-                            if (posicion >= 0 && posicion <= lista.size()-1) {
+                            if (posicion >= 0 && posicion < lista.size()) {
                                 lista.set(posicion, 0);
                             } else {
-                                System.out.println("No se encuentra esa posición en la lista, quiza sea superior al numero maximo de posiciones");
+                                System.out.println("Error. No se encuentra esa posición en la lista");
                             }
                         } else {
                             System.out.println("Operacion no disponible, la lista está vacia");
@@ -123,7 +123,8 @@ public class ej01 {
                     }
                     case 8 -> {
                         if (!lista.isEmpty()) {
-                            if (lista.contains(leerNumero(buscado))) {
+                            num=leerNumero(0,10);
+                            if (lista.contains(num)) {
                                 System.out.println("Numero encontrado");
                             } else {
                                 System.out.println("Numero NO encontrado");
@@ -135,9 +136,9 @@ public class ej01 {
                     }
                     case 9 -> {
                         if (!lista.isEmpty()) {
-                            Integer num=leerNumero(buscado);
-                            if (lista.contains(num)) {
-                               System.out.print("Encontrado en la posicion: "+Collections.binarySearch(lista,num));
+                            Integer numI=leerNumero(0,10);
+                            if (lista.contains(numI)) {
+                               System.out.print("Encontrado en la posicion: "+Collections.binarySearch(lista,numI));
                             } else {
                                 System.out.println("Numero NO encontrado");
                             }
@@ -148,8 +149,8 @@ public class ej01 {
                     }
                     case 10 -> {
                         if (!lista.isEmpty()) {
-                            Integer num=leerNumero(buscado);
-                            lista.remove(num);
+                            Integer numI=leerNumero(0,10);
+                            lista.remove(numI);
                         } else {
                             System.out.println("Operacion no disponible, la lista está vacia");
                         }
@@ -159,8 +160,8 @@ public class ej01 {
                         if (!lista.isEmpty()) {
                             System.out.println("Introduzca la posicion:");
                             posicion = teclado.nextInt();
-                            if (posicion >= 0 && posicion <= lista.size()) {
-                                lista.add(posicion, n);
+                            if (posicion >= 0 && posicion < lista.size()) {
+                                lista.add(posicion, 0);
                             } else {
                                 System.out.println("No se encuentra esa posición en la lista, quiza sea superior al numero maximo de posiciones");
                             }
@@ -171,8 +172,8 @@ public class ej01 {
                     }
                     case 12 -> {
                         if (!lista.isEmpty()) {
-                            System.out.println("Lista ordenada: ");
                             lista.sort(null);
+                            System.out.println("Lista ordenada: ");
                             System.out.println(lista);
                         } else {
                             System.out.println("Operacion no disponible, la lista está vacia");
@@ -201,7 +202,7 @@ public class ej01 {
                     case 15 -> {
                         if (!lista.isEmpty()) {
                             Collections.rotate(lista, 1);
-                            lista.forEach(System.out::println);
+                            System.out.println(lista);
                         } else {
                             System.out.println("Operacion no disponible, la lista está vacia");
                         }
@@ -209,9 +210,7 @@ public class ej01 {
                     }
                     case 16 -> {
                         if (!lista.isEmpty()) {
-                            Integer aux = lista.getFirst();
-                            lista.set(0, lista.getLast());
-                            lista.set(lista.indexOf(lista.getLast()), aux);
+                            Collections.swap(lista, 0, lista.size()-1);
                             System.out.println("El primer elemento y el ultimo se han intercambiado.");
                             System.out.println(lista);
                         } else {
@@ -238,12 +237,11 @@ public class ej01 {
         } while (opcion != 0);
     }
 
-    public static int leerNumero(int n) {
+    public static int leerNumero(int menor, int mayor) {
         System.out.print("Introduce un numero: ");
-        n = teclado.nextInt();
-        while (n < 0 || n > 10) {
-            System.out.println("Incorrecto (0-10)");
-            System.out.print("Introduce un numero: ");
+        int n = teclado.nextInt();
+        while (n < menor || n > mayor) {
+            System.out.println("Incorrecto, introduzca un valor en el rango ("+menor+","+mayor+")");
             n = teclado.nextInt();
         }
         return n;
